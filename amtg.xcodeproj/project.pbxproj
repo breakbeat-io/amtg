@@ -3,11 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		D29A177425AB499E005C02FD /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29A177325AB499E005C02FD /* main.swift */; };
+		D29A177D25AB4A04005C02FD /* SwiftJWT in Frameworks */ = {isa = PBXBuildFile; productRef = D29A177C25AB4A04005C02FD /* SwiftJWT */; };
+		D29A178125AB52B8005C02FD /* ArgumentParser in Frameworks */ = {isa = PBXBuildFile; productRef = D29A178025AB52B8005C02FD /* ArgumentParser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,6 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D29A178125AB52B8005C02FD /* ArgumentParser in Frameworks */,
+				D29A177D25AB4A04005C02FD /* SwiftJWT in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +82,10 @@
 			dependencies = (
 			);
 			name = amtg;
+			packageProductDependencies = (
+				D29A177C25AB4A04005C02FD /* SwiftJWT */,
+				D29A178025AB52B8005C02FD /* ArgumentParser */,
+			);
 			productName = amtg;
 			productReference = D29A177025AB499E005C02FD /* amtg */;
 			productType = "com.apple.product-type.tool";
@@ -105,6 +113,10 @@
 				Base,
 			);
 			mainGroup = D29A176725AB499D005C02FD;
+			packageReferences = (
+				D29A177B25AB4A04005C02FD /* XCRemoteSwiftPackageReference "Swift-JWT" */,
+				D29A177F25AB52B8005C02FD /* XCRemoteSwiftPackageReference "swift-argument-parser" */,
+			);
 			productRefGroup = D29A177125AB499E005C02FD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -285,6 +297,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D29A177B25AB4A04005C02FD /* XCRemoteSwiftPackageReference "Swift-JWT" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Kitura/Swift-JWT";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.6.200;
+			};
+		};
+		D29A177F25AB52B8005C02FD /* XCRemoteSwiftPackageReference "swift-argument-parser" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-argument-parser";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D29A177C25AB4A04005C02FD /* SwiftJWT */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D29A177B25AB4A04005C02FD /* XCRemoteSwiftPackageReference "Swift-JWT" */;
+			productName = SwiftJWT;
+		};
+		D29A178025AB52B8005C02FD /* ArgumentParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D29A177F25AB52B8005C02FD /* XCRemoteSwiftPackageReference "swift-argument-parser" */;
+			productName = ArgumentParser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D29A176825AB499D005C02FD /* Project object */;
 }
