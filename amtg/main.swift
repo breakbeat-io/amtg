@@ -22,27 +22,27 @@ struct AMTG: ParsableCommand {
     var appleMusicPrivateKeyPath: String
     
     mutating func run() throws {
-        let myHeader = Header(kid: appleMusicKeyId)
+        let tokenHeader = Header(kid: appleMusicKeyId)
 
-        struct MyClaims: Claims {
+        struct TokenClaims: Claims {
             let iss: String
             let exp: Date
             let iat: Date
         }
 
-        let myClaims = MyClaims(iss: appleDeveloperTeamId,
+        let tokenClaims = TokenClaims(iss: appleDeveloperTeamId,
                                 exp: Calendar.current.date(byAdding: DateComponents(month: 6), to: Date())!,
                                 iat: Date())
 
-        let myJWT = JWT(header: myHeader, claims: myClaims)
+        let AppleMusicAPIToken = JWT(header: tokenHeader, claims: tokenClaims)
 
         let privateKeyPath = URL(fileURLWithPath: appleMusicPrivateKeyPath)
         let privateKey = try Data(contentsOf: privateKeyPath)
 
         let jwtEncoder = JWTEncoder(jwtSigner: JWTSigner.es256(privateKey: privateKey))
-        let jwtString = try jwtEncoder.encodeToString(myJWT)
+        let encodedAppleMusicAPIToken = try jwtEncoder.encodeToString(AppleMusicAPIToken)
 
-        print(jwtString)
+        print(encodedAppleMusicAPIToken)
     }
 }
 
