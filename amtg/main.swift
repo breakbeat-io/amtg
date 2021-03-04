@@ -31,8 +31,8 @@ struct AMTG: ParsableCommand {
         }
 
         let tokenClaims = TokenClaims(iss: appleDeveloperTeamId,
-                                exp: Calendar.current.date(byAdding: DateComponents(month: 6), to: Date())!,
-                                iat: Date())
+                                      exp: Calendar.current.date(byAdding: DateComponents(second: 15000000), to: Date())!, // exp can be no longer than 6 months, this is slightly short to avoid server time differences
+                                      iat: Date())
 
         let AppleMusicAPIToken = JWT(header: tokenHeader, claims: tokenClaims)
 
