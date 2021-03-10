@@ -12,36 +12,36 @@ import SwiftJWT
 struct AMTG: ParsableCommand {
     static var configuration = CommandConfiguration(abstract: "Creates an Apple Music API Token")
     
-    @Option(name: [.customShort("k"), .customLong("keyId")], help: "Apple Music Key ID")
+    @Option(name: [.customShort("k"), .customLong("privateKey")], help: "Apple Music Private Key (base64)")
+    var appleMusicPrivateKey: String
+    
+    @Option(name: [.customShort("i"), .customLong("keyId")], help: "Apple Music Key ID")
     var appleMusicKeyId: String
     
     @Option(name: [.customShort("t"), .customLong("teamID")], help: "Apple Developer Team ID")
     var appleDeveloperTeamId: String
     
-    @Option(name: [.customShort("p"), .customLong("privateKeyPath")], help: "Path to Apple Music Private Key (.p8)")
-    var appleMusicPrivateKeyPath: String
     
     mutating func run() throws {
         let tokenHeader = Header(kid: appleMusicKeyId)
-
+        
         struct TokenClaims: Claims {
             let iss: String
             let exp: Date
             let iat: Date
         }
-
+        
         let tokenClaims = TokenClaims(iss: appleDeveloperTeamId,
                                       exp: Calendar.current.date(byAdding: DateComponents(second: 15000000), to: Date())!, // exp can be no longer than 6 months, this is slightly short to avoid server time differences
                                       iat: Date())
-
+        
         let AppleMusicAPIToken = JWT(header: tokenHeader, claims: tokenClaims)
-
-        let privateKeyPath = URL(fileURLWithPath: appleMusicPrivateKeyPath)
-        let privateKey = try Data(contentsOf: privateKeyPath)
-
+        
+        let privateKey = Data(base64Encoded: appleMusicPrivateKey)!
+        
         let jwtEncoder = JWTEncoder(jwtSigner: JWTSigner.es256(privateKey: privateKey))
         let encodedAppleMusicAPIToken = try jwtEncoder.encodeToString(AppleMusicAPIToken)
-
+        
         print(encodedAppleMusicAPIToken)
     }
 }
